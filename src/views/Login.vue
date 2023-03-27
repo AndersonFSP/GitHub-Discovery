@@ -4,7 +4,7 @@
       <InputText v-model="form.email" label="Email" id="email" />
       <InputText v-model="form.password" label="Password" type="password" id="password" />
       <div class="button-container">
-        <Button label="sign in" />
+        <Button label="sign n" />
       </div>
     </form>
   </section>
