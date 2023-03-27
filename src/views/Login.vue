@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import { reactive } from 'vue'
-import InputText from '@/components/inputText/InputText.vue'
+import InputText from '@/components/InputText/InputText.vue'
 import Button from '@/components/Button/Button.vue'
 import { firebaseAuth } from '@/firebase'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
