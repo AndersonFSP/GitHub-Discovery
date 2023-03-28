@@ -21,7 +21,12 @@ export const useAuthentication = defineStore('authentication', {
       await AuthenticationService.register(user)
     },
     verifyIfIsLogged(): User | null {
+      console.log(AuthenticationService.getCurrentUser())
       return AuthenticationService.getCurrentUser()
+    },
+    async logout() {
+      AuthenticationService.logout()
+      this.toggleAuth()
     }
   }
 })

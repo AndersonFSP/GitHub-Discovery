@@ -1,17 +1,17 @@
 <template>
-  <!-- <header>
-    <div class="wrapper">
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header> -->
+  <Header v-if="isUserLogged" />
   <RouterView />
 </template>
 
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { useAuthentication } from '@/stores/modules/authentication'
+import { RouterView } from 'vue-router'
+import { computed } from 'vue'
+import Header from '@/components/Header/Header.vue'
+
+const store = useAuthentication()
+store.verifyIfIsLogged()
+ const isUserLogged = computed(() => store.isUserLogged)
 </script>
 
 <style scoped lang="less">

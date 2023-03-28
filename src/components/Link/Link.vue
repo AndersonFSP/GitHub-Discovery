@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="link" class="link">
+  <router-link exact :to="link" class="link">
     <slot></slot>
   </router-link>
 </template>
@@ -21,7 +21,12 @@ defineProps<Props>()
 
   &:hover {
     color: #ee1515;
-      text-decoration: underline;
+    text-decoration: underline;
   }
+
+}
+.router-link-active {
+  color: #ee1515;
+  text-decoration: underline;
 }
 </style>

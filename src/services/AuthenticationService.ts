@@ -1,6 +1,6 @@
 import type { UserParams } from '@/stores/modules/authentication/types'
 import { firebaseAuth } from '@/firebase'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, type User } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, type User, signOut } from 'firebase/auth'
 
 export default {
   login({ email, password }: UserParams) {
@@ -13,6 +13,9 @@ export default {
       password
     )
     await updateProfile(userCredential.user, { displayName })
+  },
+  logout() {
+    return signOut(firebaseAuth)
   },
   getCurrentUser(): User | null {
     return firebaseAuth.currentUser
