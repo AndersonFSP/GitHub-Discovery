@@ -73,7 +73,7 @@ label {
   
   .message {
     font-size: 0.8em;
-    color: #f00000;
+    color: #e87c03;
   }
 
   .active {
@@ -91,7 +91,7 @@ label {
     transition: margin 200ms ease;
 
     &.error {
-      color: #f00000;
+      color: #e87c03;
     }
   }
 
@@ -107,7 +107,7 @@ label {
     color: #fff;
 
     &.error {
-      border-color: #f00000;
+      border-color: #e87c03;
     }
 
     &:focus {
