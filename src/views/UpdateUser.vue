@@ -1,6 +1,6 @@
 <template>
-  <section class="register">
-    <FormBox title="Register" @on-submit="validate">
+  <section class="update">
+    <FormBox title="My Account" @on-submit="validate">
       <InputText 
         v-model="form.displayName" 
         label="Username"  
@@ -16,40 +16,32 @@
         message="email is not valid"
         :status="inputStatus.email"
       />
-      <InputText 
-        v-model="form.password" 
-        label="Password" 
-        type="password" 
-        id="password"
-        message="password should have at least 6 characters"
-        :status="inputStatus.password"
-      />
       <template #button>
-        <Button label="Register" />
+        <Button label="save" />
       </template>
     </FormBox>
   </section>
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { reactive, ref, onMounted } from 'vue'
 import InputText from '@/components/InputText/InputText.vue'
-import Button from '@/components/Button/Button.vue'
 import FormBox from '@/components/FormBox/FormBox.vue'
+import Button from '@/components/Button/Button.vue'
 import { useAuthentication } from '@/stores/modules/authentication'
 import { useFormErrors } from '@/composables/useFormErrors'
-import { registerSchema } from '@/validation'
+import { updateSchema } from '@/validation'
 import { useRouter } from 'vue-router'
 
 const store = useAuthentication()
 const router = useRouter()
 const { setErrors, inputStatus }  = useFormErrors()
-const form = reactive({ email: '', displayName: '', password: '' })
+const form = ref({ email: '', displayName: '' })
 const registerError = ref<boolean>(false)
 
-const register = async () => {
+const update = async () => {
   try {
-    await store.register(form)
+    await store.update(form.value)
     router.push({ name: 'login' })
   } catch (error) {
     registerError.value = true
@@ -60,33 +52,26 @@ const register = async () => {
 const validate = async () => {
   registerError.value = false
   try {
-    await registerSchema.validate(
-     form,
+    await updateSchema.validate(
+     form.value,
       { abortEarly: false }
     )
-    register()
+    update()
   } catch (err) {
     setErrors(err)
   }
 }
+
+const { displayName, email } = store.user
+form.value = { displayName, email }
 </script>
 
 <style lang="less" scoped>
-  .register {
+  .update {
     display: flex;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
-    height: 100vh;
-  
-    form {
-      width: 50%;
-      padding: 50px;
-      background-color: #000000bf;
-      border-radius: 4px;
-    }
-
-    .button-container {
-      margin-top: 50px;
-    }
+    height: 80vh;
+    margin-left: 60px;
   }
 </style>

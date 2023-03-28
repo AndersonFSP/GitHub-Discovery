@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onBeforeMount } from 'vue'
 import { StatusType } from './types'
 import { ref } from 'vue'
 
@@ -49,8 +49,6 @@ const props = withDefaults(defineProps<Props>(), {
 const emit = defineEmits<Emits>()
 const active = ref<boolean>(false)
 
-if (props.modelValue) active.value = true
-
 const spanClasses = computed(() => ({ active: active.value }))
 const state = computed(() => {
   return {
@@ -63,6 +61,9 @@ const hasError = computed((): boolean => props.status === StatusType.Error)
 const focusInput = () => (active.value = true)
 const blurInput = () => (active.value = props.modelValue ? true : false)
 const onInput = (value: string) => emit('update:modelValue', value)
+onBeforeMount(() => {
+  if (props.modelValue) active.value = true
+})
 </script>
 
 <style lang="less" scoped>
@@ -111,7 +112,6 @@ label {
     }
 
     &:focus {
-      // border: 2px solid #534f4d;
       background-color: #414141;
     }
   }

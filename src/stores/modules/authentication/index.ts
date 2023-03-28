@@ -15,10 +15,14 @@ export const useAuthentication = defineStore('authentication', {
     },
     async login(user: UserParams): Promise<void> {
       await AuthenticationService.login(user)
-      this.toggleAuth()
+      this.verifyIfIsLogged()
     },
     async register(user: UserParams) {
       await AuthenticationService.register(user)
+    },
+    async update(user: Omit<UserParams, 'password'>) {
+      await AuthenticationService.update(user)
+      this.toggleAuth()
     },
     verifyIfIsLogged() {
       const user = AuthenticationService.getCurrentUser()

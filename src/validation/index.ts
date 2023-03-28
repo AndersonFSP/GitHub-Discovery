@@ -5,11 +5,9 @@ const commonValidation = {
   password: yup.string().required().min(6)
 }
 
-export const loginSchema = yup.object().shape({
-  ...commonValidation
-})
-
+export const loginSchema = yup.object().shape(commonValidation)
 export const registerSchema = yup.object().shape({
   ...commonValidation,
   displayName: yup.string().required()
 })
+export const updateSchema = yup.object().shape({ displayName: yup.string().required(), email: yup.string().email().required(), })

@@ -7,6 +7,7 @@
     </nav>
 
     <nav>
+      <Link link="/update-user">{{ userDisplayName }}</Link>
       <Link link="#" @click="logout">Logout</Link>
     </nav>
    </section>
@@ -17,9 +18,12 @@
 import Link from '@/components/Link/Link.vue'
 import { useAuthentication } from '@/stores/modules/authentication'
 import { useRouter } from 'vue-router'
+import { computed } from 'vue'
 
 const store = useAuthentication()
 const router = useRouter()
+
+const userDisplayName = computed(() => store.user?.displayName || 'Username')
 
 const logout = () => {
   store.logout()
