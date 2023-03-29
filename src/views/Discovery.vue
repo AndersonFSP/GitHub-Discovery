@@ -1,6 +1,31 @@
 <template>
-  <h1>Discovery</h1>
+  <section>
+    <FilterList title="Toggle topics to show" :checked="['javascript']" :options="options" @on-change="ola" />
+    <!-- <div>Checked names: {{ checkedNames }}</div> -->
+  </section>
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue';
+import FilterList from '@/components/FilterList/FilterList.vue'
+
+const checkedNames = ref([])
+const options = [
+  { label: 'Vue', value: 'vue' },
+  { label: 'Typescript', value: 'typescript' },
+  { label: 'Javascript', value: 'javascript' },
+  { label: 'Go', value: 'go' },
+  { label: 'CSS', value: 'css' },
+  { label: 'Node', value: 'node' },
+ ]
+ const ola = (value: string[]) => {
+   console.log(value)
+   checkedNames.value = value
+ }
 </script>
+
+<style scoped lang="less">
+  section {
+    margin: @size-spacing-6;
+  }
+</style>

@@ -74,7 +74,7 @@ label {
   
   .message {
     font-size: 0.8em;
-    color: #e87c03;
+    color: @element-error;
   }
 
   .active {
@@ -87,12 +87,12 @@ label {
     position: absolute;
     font-size: 0.8em;
     text-transform: uppercase;
-    color: #fff;
+    color: @text-primary;
     margin: 20px;
     transition: margin 200ms ease;
 
     &.error {
-      color: #e87c03;
+      color: @element-error;
     }
   }
 
@@ -105,10 +105,10 @@ label {
     font-size: 0.9em;
     padding: 25px 10px 10px;
     font-weight: 600;
-    color: #fff;
+    color: @text-primary;
 
     &.error {
-      border-color: #e87c03;
+      border-color: @element-error;
     }
 
     &:focus {

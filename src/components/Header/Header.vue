@@ -40,11 +40,10 @@ const logout = () => {
     background-color: #000000;
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
     z-index: 1000;
-
     nav {
       display: flex;
       align-items: center;
-      gap: 36px;
+      gap: @size-spacing-4;
     }
   }
 

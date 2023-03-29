@@ -19,14 +19,14 @@ button {
   padding: 10px 3px;
   font-size: 1.2em;
   border: none;
-  color: #fff;
-  background-color: #db0000;
+  color: @text-primary;
+  background-color: @button-primary;
   cursor: pointer;
   text-transform: capitalize;
   text-align: center;
 
   &:hover {
-    background-color: #ee1515;
+    background-color: @button-primary-hover;
   }
 }
 </style>
