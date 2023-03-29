@@ -8,7 +8,7 @@
 
     <nav>
       <Link link="/update-user">{{ userDisplayName }}</Link>
-      <Link link="#" @click="logout">Logout</Link>
+      <BaseText class="logout" @click="logout">Logout</BaseText>
     </nav>
    </section>
   </header>
@@ -19,6 +19,7 @@ import Link from '@/components/Link/Link.vue'
 import { useAuthentication } from '@/stores/modules/authentication'
 import { useRouter } from 'vue-router'
 import { computed } from 'vue'
+import BaseText from '@/components/BaseText/BaseText.vue'
 
 const store = useAuthentication()
 const router = useRouter()
@@ -37,18 +38,23 @@ const logout = () => {
     top: 0;
     left: 0;
     right: 0;
-    background-color: #000000;
+    background-color: @background-primary;
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
     z-index: 1000;
     nav {
       display: flex;
       align-items: center;
       gap: @size-spacing-4;
+
+      .logout {
+        cursor: pointer;
+        font-weight: bold;
+      }
     }
   }
 
   .header-container {
-    padding: 2rem;
+    padding: @size-spacing-4  @size-spacing-5;
     margin: 0 auto;
     display: flex;
     align-items: center;

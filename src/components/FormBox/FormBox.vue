@@ -27,14 +27,14 @@ const emit = defineEmits<Emits>()
 .form-box {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: @size-spacing-4;
   width: 50%;
-  padding: 50px;
-  background-color: #000000bf;
+  padding: @size-spacing-5;
+  background-color: @background-primary;
   border-radius: 4px;
 
   .button-container {
-    margin-top: 20px;
+    margin-top: @size-spacing-3;
   }
 }
 </style>

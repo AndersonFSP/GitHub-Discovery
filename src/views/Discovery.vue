@@ -1,12 +1,12 @@
 <template>
   <section>
-    <FilterList title="Toggle topics to show" :checked="['javascript']" :options="options" @on-change="ola" />
+    <FilterList title="Toggle topics to show" :checked="checked" :options="options" @on-change="ola" />
     <!-- <div>Checked names: {{ checkedNames }}</div> -->
   </section>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import FilterList from '@/components/FilterList/FilterList.vue'
 
 const checkedNames = ref([])
@@ -19,9 +19,9 @@ const options = [
   { label: 'Node', value: 'node' },
  ]
  const ola = (value: string[]) => {
-   console.log(value)
    checkedNames.value = value
  }
+ const checked = computed(() => ['vue', 'javascript'])
 </script>
 
 <style scoped lang="less">

@@ -81,7 +81,7 @@ const validate = async () => {
     form {
       width: 50%;
       padding: 50px;
-      background-color: #000000bf;
+      background-color: @background-primary;
       border-radius: 4px;
     }
 
