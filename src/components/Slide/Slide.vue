@@ -1,18 +1,36 @@
 <template>
   <div class="movie-slide">
-    <DropdownList :title="title" :options="options" @on-change="updateSortOption" />
-    <button class="movie-slide-button movie-slide-prev" @click="scrollLeft">
+    <DropdownList
+      v-if="sortedDropdown"
+      :title="title"
+      :options="options"
+      @on-change="updateSortOption"
+    />
+    <Heading v-else :level="3">{{ title }}</Heading>
+    <button class="movie-slide-button movie-slide-prev" @click="scrollLeft" v-if="hasItems">
       <i class="fa fa-chevron-left"></i>
     </button>
-    <button class="movie-slide-button movie-slide-next" @click="scrollRight">
+    <button class="movie-slide-button movie-slide-next" @click="scrollRight" v-if="hasItems">
       <i class="fa fa-chevron-right"></i>
     </button>
     <div class="movie-slide-list-container">
       <div class="movie-slide-list" ref="movieSlideList" :style="style">
-        <div v-for="({ repositoryName, image, link }, index) in sortedItems" :key="index" class="movie-slide-item" @click="openLink(link)">
-          <img :src="image" alt="Movie Poster" class="movie-slide-poster">
+        <div
+          v-for="(item, index) in sortedItems"
+          :key="index"
+          class="movie-slide-item"
+          @click="openLink(item.link)"
+        >
+          <img :src="item.image" alt="Movie Poster" class="movie-slide-poster" />
           <div class="overlay">
-            <BaseText>{{ repositoryName }}</BaseText>
+            <Heading :level="3">{{ item.repositoryName }}</Heading>
+            <i
+              :class="[
+                'favorite-icon',
+                store.findBookmarkIndex(item) === -1 ? 'fa fa-star-o' : 'fa fa-star'
+              ]"
+              @click.stop="favoriteItem(item)"
+            ></i>
           </div>
         </div>
       </div>
@@ -22,38 +40,37 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import BaseText from '@/components/BaseText/BaseText.vue'
+import Heading from '@/components/Heading/Heading.vue'
 import DropdownList from '@/components/DropdownList/DropdownList.vue'
 import { Option } from '@/components/DropdownList/types'
-
-interface Items {
-  image: string,
-  repositoryName: string
-  link: string
-  stars: number
-  forks: number
-  issues: number
-  updated: number
-}
+import { Item } from './types'
+import { usePersistedData } from '@/stores/modules/persistedData'
 
 interface Props {
   title: string
-  items: Items[]
+  items: Item[]
+  sortedDropdown?: boolean
 }
 const props = withDefaults(defineProps<Props>(), {
-  items: () => []
+  items: () => [],
+  sortefDropdown: true
 })
 
+const store = usePersistedData()
+const favoriteItem = (item: Item) => {
+  store.updateBookmark(item)
+}
 const scrollx = ref(0)
 const options: Option[] = [
   { label: 'Sort by Star', value: 'stars' },
   { label: 'Sort by forks', value: 'forks' },
   { label: 'Sort by help wanted issues', value: 'issues' },
-  { label: 'Sort by updated', value: 'updated' },
+  { label: 'Sort by updated', value: 'updated' }
 ]
 const sortOption = ref<string>('')
 const roundedHalfScreenWidth = Math.round(window.innerWidth / 2)
 
+const hasItems = computed(() => props.items.length && window.innerWidth < props.items.length * 260)
 const style = computed(() => ({
   width: `${props.items.length * 260}px`,
   'margin-left': `${scrollx.value}px`
@@ -61,16 +78,14 @@ const style = computed(() => ({
 
 const sortedItems = computed(() => {
   const itemsCopy = props.items
-  if(sortOption.value === '')
-    return itemsCopy
+  if (sortOption.value === '') return itemsCopy
 
-  itemsCopy.sort((itemA: Items, itemB: Items) => {
+  itemsCopy.sort((itemA: Item, itemB: Item) => {
     const a = itemA[sortOption.value]
     const b = itemB[sortOption.value]
-    if ( a < b) {
+    if (a < b) {
       return -1
-    }
-    else if (a > b) {
+    } else if (a > b) {
       return 1
     } else {
       return 0
@@ -85,15 +100,14 @@ const updateSortOption = (value: string) => {
 
 const scrollLeft = () => {
   let x = scrollx.value + roundedHalfScreenWidth
-  if (x > 0) x= 0
+  if (x > 0) x = 0
   scrollx.value = x
 }
 
 const scrollRight = () => {
   let x = scrollx.value - roundedHalfScreenWidth
   const widthCompleteList = props.items.length * 260
-  if ((window.innerWidth - widthCompleteList) > x)
-    x = (window.innerWidth - widthCompleteList) - 260
+  if (window.innerWidth - widthCompleteList > x) x = window.innerWidth - widthCompleteList - 260
   scrollx.value = x
 }
 
@@ -116,7 +130,7 @@ const openLink = (link: string) => {
   }
 
   .movie-slide-list {
-    transition: all ease 0.4s;
+    transition: margin ease 0.4s;
   }
 
   .movie-slide-item {
@@ -162,12 +176,11 @@ const openLink = (link: string) => {
   .movie-slide-button {
     position: absolute;
     opacity: 0;
-    top: 55%;
+    top: 50%;
     z-index: 10000;
-    transform: translateY(-50%);
     width: 30px;
     height: 30px;
-    background-color:  rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.8);
     border: none;
     border-radius: 50%;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -183,6 +196,21 @@ const openLink = (link: string) => {
   .movie-slide-next {
     right: 0;
     margin-right: -30px;
+  }
+
+  .favorite-icon {
+    font-size: 1.5rem;
+    position: absolute;
+    top: @size-spacing-2;
+    right: @size-spacing-2;
+    z-index: 99999;
+    color: orange;
+    transform: scale(0.9);
+    transition: all ease 0.3s;
+
+    &:hover {
+      transform: scale(1.3);
+    }
   }
 }
 </style>

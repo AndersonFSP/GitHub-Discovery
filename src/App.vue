@@ -11,6 +11,5 @@ import Header from '@/components/Header/Header.vue'
 
 const store = useAuthentication()
 store.verifyIfIsLogged()
- const isUserLogged = computed(() => store.isUserLogged)
+const isUserLogged = computed(() => store.isUserLogged)
 </script>
-

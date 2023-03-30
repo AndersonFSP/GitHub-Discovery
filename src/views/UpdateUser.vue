@@ -1,17 +1,17 @@
 <template>
   <section class="update">
     <FormBox title="My Account" @on-submit="validate">
-      <InputText 
-        v-model="form.displayName" 
-        label="Username"  
-        message="username is not valid" 
-        :status="inputStatus.email"  
-        id="username" 
+      <InputText
+        v-model="form.displayName"
+        label="Username"
+        message="username is not valid"
+        :status="inputStatus.email"
+        id="username"
       />
-      <InputText 
-        v-model="form.email" 
-        label="Email" 
-        type="email" 
+      <InputText
+        v-model="form.email"
+        label="Email"
+        type="email"
         id="email"
         message="email is not valid"
         :status="inputStatus.email"
@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import InputText from '@/components/InputText/InputText.vue'
 import FormBox from '@/components/FormBox/FormBox.vue'
 import Button from '@/components/Button/Button.vue'
@@ -35,7 +35,7 @@ import { useRouter } from 'vue-router'
 
 const store = useAuthentication()
 const router = useRouter()
-const { setErrors, inputStatus }  = useFormErrors()
+const { setErrors, inputStatus } = useFormErrors()
 const form = ref({ email: '', displayName: '' })
 const registerError = ref<boolean>(false)
 
@@ -52,10 +52,7 @@ const update = async () => {
 const validate = async () => {
   registerError.value = false
   try {
-    await updateSchema.validate(
-     form.value,
-      { abortEarly: false }
-    )
+    await updateSchema.validate(form.value, { abortEarly: false })
     update()
   } catch (err) {
     setErrors(err)
@@ -67,11 +64,11 @@ form.value = { displayName, email }
 </script>
 
 <style lang="less" scoped>
-  .update {
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    height: 80vh;
-    margin-left: 60px;
-  }
+.update {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  height: 80vh;
+  margin-left: @size-spacing-5;
+}
 </style>

@@ -5,9 +5,10 @@
       <i :class="icon"></i>
     </Heading>
     <ul v-show="showDropdown" class="dropdown-menu">
-      <li v-for="(option, index) in options" 
-        :key="index" 
-        :class="selectedIndex === index? 'active' : ''" 
+      <li
+        v-for="(option, index) in options"
+        :key="index"
+        :class="selectedIndex === index ? 'active' : ''"
         @click="selectOption(option, index)"
       >
         {{ option.label }}
@@ -18,7 +19,7 @@
 
 <script setup lang="ts">
 import Heading from '@/components/Heading/Heading.vue'
-import { ref, reactive, computed } from 'vue'
+import { ref, computed } from 'vue'
 import { Option } from './types'
 
 interface Props {
@@ -33,9 +34,9 @@ defineProps<Props>()
 const emit = defineEmits<Emits>()
 
 const showDropdown = ref<boolean>()
-const selectedOption = ref<Option>({ label: '', value: ''})
+const selectedOption = ref<Option>({ label: '', value: '' })
 const selectedIndex = ref<number>()
-const icon = computed(() => showDropdown.value ? 'fa fa-chevron-up' : 'fa fa-chevron-down')
+const icon = computed(() => (showDropdown.value ? 'fa fa-chevron-up' : 'fa fa-chevron-down'))
 
 const toggleDropdown = () => {
   showDropdown.value = !showDropdown.value
@@ -73,11 +74,11 @@ const selectOption = (option: Option, index: number) => {
   transition: all ease 0.4s;
 
   &.active {
-    background-color:@button-primary-hover;
+    background-color: @button-primary-hover;
   }
 
   &:hover {
-    background-color:@button-primary-hover;
+    background-color: @button-primary-hover;
   }
 }
 </style>

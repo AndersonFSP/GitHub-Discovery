@@ -23,7 +23,6 @@ defineProps<Props>()
     color: #ee1515;
     text-decoration: underline;
   }
-
 }
 .router-link-active {
   color: #ee1515;

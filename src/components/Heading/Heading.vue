@@ -11,7 +11,7 @@ interface Props {
   level?: number
 }
 
-const props =  withDefaults(defineProps<Props>(), { level: 1 })
+const props = withDefaults(defineProps<Props>(), { level: 1 })
 
 const tagHeading = computed(() => `h${props.level}`)
 </script>

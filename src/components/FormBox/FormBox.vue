@@ -4,7 +4,7 @@
     <div>
       <slot />
     </div>
-    <div class="button-container ">
+    <div class="button-container">
       <slot name="button" />
     </div>
   </form>

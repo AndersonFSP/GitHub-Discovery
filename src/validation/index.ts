@@ -10,4 +10,6 @@ export const registerSchema = yup.object().shape({
   ...commonValidation,
   displayName: yup.string().required()
 })
-export const updateSchema = yup.object().shape({ displayName: yup.string().required(), email: yup.string().email().required(), })
+export const updateSchema = yup
+  .object()
+  .shape({ displayName: yup.string().required(), email: yup.string().email().required() })

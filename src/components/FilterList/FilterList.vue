@@ -1,21 +1,22 @@
 <template>
   <Heading class="filter-title" :level="3">{{ title }}</Heading>
   <div class="filter-container">
-    <label 
-      v-for="option in options" :key="option" 
-      :for="option.value" 
-      :class="['label-filter',checkedNames.includes(option.value) ? 'active': '']"
+    <label
+      v-for="option in options"
+      :key="option"
+      :for="option.value"
+      :class="['label-filter', checkedNames.includes(option.value) ? 'active' : '']"
     >
       <input
         class="checkbox-input"
         type="checkbox"
         checked
-        :id="option.value" 
-        :value="option.value" 
-        v-model="checkedNames" 
-        @change="onChange" 
-      >
-    {{ option.label }}
+        :id="option.value"
+        :value="option.value"
+        v-model="checkedNames"
+        @change="onChange"
+      />
+      {{ option.label }}
     </label>
   </div>
 </template>
@@ -25,16 +26,16 @@ import { ref, onMounted } from 'vue'
 import Heading from '@/components/Heading/Heading.vue'
 
 interface Props {
-  options: { label: string, value: 'string' }[],
-  checked: string[],
+  options: { label: string; value: 'string' }[]
+  checked: string[]
   title: string
 }
 interface Emits {
   (event: 'on-change', value: string[]): string[]
 }
 
-const props = withDefaults(defineProps<Props>(), { 
-  options: () => [] 
+const props = withDefaults(defineProps<Props>(), {
+  options: () => []
 })
 const emit = defineEmits<Emits>()
 const checkedNames = ref([])
@@ -49,43 +50,42 @@ onMounted(() => {
 </script>
 
 <style scoped lang="less">
-  .filter-title {
-    margin-bottom: @size-spacing-2;
+.filter-title {
+  margin-bottom: @size-spacing-2;
+}
+
+.filter-container {
+  display: flex;
+  gap: @size-spacing-3;
+  flex-wrap: wrap;
+}
+
+input {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.label-filter {
+  background-color: @base-primary;
+  font-weight: bold;
+  color: @text-element;
+  border-radius: 32px;
+  padding: @size-spacing-2 @size-spacing-4;
+  cursor: pointer;
+  transition: all ease 0.2s;
+
+  &:hover {
+    background-color: @base-primary-hover;
   }
 
- .filter-container {
-    display: flex;
-    gap: @size-spacing-3;
-    flex-wrap: wrap;
-  }
+  &.active {
+    background-color: @element-select;
+    color: @text-secondary;
 
-  input {
-    opacity: 0;
-    position: absolute;
-    z-index: -1;
-  }
-
-  .label-filter {
-    background-color: @base-primary;
-    font-weight: bold;
-    color: @text-element;
-    border-radius: 32px;
-    padding: @size-spacing-2 @size-spacing-4;
-    cursor: pointer;
-    transition: all ease 0.2s;
-    
     &:hover {
-      background-color: @base-primary-hover;
-    }
-
-
-    &.active {
-      background-color: @element-select;
-      color: @text-secondary;
-  
-      &:hover {
-        background-color: @element-select-hover;
-      }
+      background-color: @element-select-hover;
     }
   }
+}
 </style>

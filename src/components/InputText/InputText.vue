@@ -1,5 +1,5 @@
 <template>
- <label :for="id">
+  <label :for="id">
     <span :class="[spanClasses, state]" data-testid="input-label">
       {{ label }}
     </span>
@@ -71,7 +71,7 @@ label {
   width: 100%;
   display: block;
   margin-bottom: 20px;
-  
+
   .message {
     font-size: 0.8em;
     color: @element-error;

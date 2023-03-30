@@ -8,6 +8,5 @@ import { firebaseAuth } from '@/firebase'
 
 let app: unknown
 onAuthStateChanged(firebaseAuth, () => {
-  if (!app)
-    app = createApp(App).use(createPinia()).use(router).mount('#app')
+  if (!app) app = createApp(App).use(createPinia()).use(router).mount('#app')
 })

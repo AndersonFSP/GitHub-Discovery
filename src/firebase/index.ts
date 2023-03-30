@@ -7,7 +7,7 @@ const firebaseConfig = {
   projectId: import.meta.env.VITE_FIREBASE_PROJECTID,
   storageBucket: import.meta.env.VITE_FIREBASE_STORAGEBUCKET,
   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGINGSENDERID,
-  appId: import.meta.env.VITE_FIREBASE_APIID,
+  appId: import.meta.env.VITE_FIREBASE_APIID
 }
 
 const app = initializeApp(firebaseConfig)

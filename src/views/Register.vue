@@ -1,25 +1,25 @@
 <template>
   <section class="register">
     <FormBox title="Register" @on-submit="validate">
-      <InputText 
-        v-model="form.displayName" 
-        label="Username"  
-        message="username is not valid" 
-        :status="inputStatus.email"  
-        id="username" 
+      <InputText
+        v-model="form.displayName"
+        label="Username"
+        message="username is not valid"
+        :status="inputStatus.email"
+        id="username"
       />
-      <InputText 
-        v-model="form.email" 
-        label="Email" 
-        type="email" 
+      <InputText
+        v-model="form.email"
+        label="Email"
+        type="email"
         id="email"
         message="email is not valid"
         :status="inputStatus.email"
       />
-      <InputText 
-        v-model="form.password" 
-        label="Password" 
-        type="password" 
+      <InputText
+        v-model="form.password"
+        label="Password"
+        type="password"
         id="password"
         message="password should have at least 6 characters"
         :status="inputStatus.password"
@@ -43,7 +43,7 @@ import { useRouter } from 'vue-router'
 
 const store = useAuthentication()
 const router = useRouter()
-const { setErrors, inputStatus }  = useFormErrors()
+const { setErrors, inputStatus } = useFormErrors()
 const form = reactive({ email: '', displayName: '', password: '' })
 const registerError = ref<boolean>(false)
 
@@ -60,10 +60,7 @@ const register = async () => {
 const validate = async () => {
   registerError.value = false
   try {
-    await registerSchema.validate(
-     form,
-      { abortEarly: false }
-    )
+    await registerSchema.validate(form, { abortEarly: false })
     register()
   } catch (err) {
     setErrors(err)
@@ -72,21 +69,21 @@ const validate = async () => {
 </script>
 
 <style lang="less" scoped>
-  .register {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  
-    form {
-      width: 50%;
-      padding: 50px;
-      background-color: @background-primary;
-      border-radius: 4px;
-    }
+.register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 
-    .button-container {
-      margin-top: 50px;
-    }
+  form {
+    width: 50%;
+    padding: 50px;
+    background-color: @background-primary;
+    border-radius: 4px;
   }
+
+  .button-container {
+    margin-top: 50px;
+  }
+}
 </style>

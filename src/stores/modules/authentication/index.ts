@@ -1,12 +1,11 @@
 import AuthenticationService from '@/services/AuthenticationService'
 import type { AuthenticationState, UserParams } from './types'
 import { defineStore } from 'pinia'
-import type { User } from 'firebase/auth'
 
 export const useAuthentication = defineStore('authentication', {
   state: (): AuthenticationState => ({
     user: null,
-    isUserLogged: false,
+    isUserLogged: false
   }),
 
   actions: {

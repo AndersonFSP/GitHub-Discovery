@@ -1,30 +1,30 @@
 <template>
   <section class="login">
     <FormBox title="Login" @on-submit="validate">
-      <InputText 
-        v-model="form.email" 
-        label="Email" 
-        type="email" 
-        id="email" 
-        message="email is not valid" 
-        :status="inputStatus.email" 
+      <InputText
+        v-model="form.email"
+        label="Email"
+        type="email"
+        id="email"
+        message="email is not valid"
+        :status="inputStatus.email"
       />
-      <InputText 
-        v-model="form.password" 
-        label="Password" 
-        type="password" 
-        id="password" 
+      <InputText
+        v-model="form.password"
+        label="Password"
+        type="password"
+        id="password"
         message="password is not valid"
         :status="inputStatus.password"
-       />
+      />
 
       <template #button>
         <h4 v-if="loginError" class="login-error">An error occurred during login</h4>
-        <Button label="sign in"/>
-          <BaseText class="create-account-link">
-            Don't have an account?
+        <Button label="sign in" />
+        <BaseText class="create-account-link">
+          Don't have an account?
           <Link link="/register">Click here to sign up</Link>
-         </BaseText>
+        </BaseText>
       </template>
     </FormBox>
   </section>
@@ -44,7 +44,7 @@ import { useRouter } from 'vue-router'
 
 const store = useAuthentication()
 const router = useRouter()
-const { setErrors, inputStatus }  = useFormErrors()
+const { setErrors, inputStatus } = useFormErrors()
 const form = reactive({ email: '', username: '', password: '' })
 const loginError = ref<boolean>(false)
 
@@ -61,10 +61,7 @@ const login = async () => {
 const validate = async () => {
   loginError.value = false
   try {
-    await loginSchema.validate(
-     form,
-      { abortEarly: false }
-    )
+    await loginSchema.validate(form, { abortEarly: false })
     login()
   } catch (err) {
     setErrors(err)
@@ -73,11 +70,11 @@ const validate = async () => {
 </script>
 
 <style lang="less" scoped>
-  .login {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 
   .login-error {
     color: #e87c03;
@@ -90,5 +87,5 @@ const validate = async () => {
     text-align: right;
     margin-top: 15px;
   }
-  }
+}
 </style>

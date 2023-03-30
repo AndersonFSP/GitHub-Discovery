@@ -16,9 +16,10 @@ const router = createRouter({
     }
   ]
 })
-const renderLogin = () => render(Login, {
-  global: { plugins: [createTestingPinia(), router] }
-})
+const renderLogin = () =>
+  render(Login, {
+    global: { plugins: [createTestingPinia(), router] }
+  })
 
 describe('Login', () => {
   it('should redner Login', () => {
