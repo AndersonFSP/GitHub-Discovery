@@ -4,17 +4,18 @@
       v-if="sortedDropdown"
       :title="title"
       :options="options"
+      :selected="sortOption"
       @on-change="updateSortOption"
     />
     <Heading v-else :level="2">{{ title }}</Heading>
-    <button class="movie-slide-button movie-slide-prev" @click="scrollLeft" v-if="hasItems">
+    <button v-if="hasItems" class="movie-slide-button movie-slide-prev" @click="scrollLeft">
       <i class="fa fa-chevron-left"></i>
     </button>
-    <button class="movie-slide-button movie-slide-next" @click="scrollRight" v-if="hasItems">
+    <button v-if="hasItems" class="movie-slide-button movie-slide-next" @click="scrollRight">
       <i class="fa fa-chevron-right"></i>
     </button>
     <div class="movie-slide-list-container">
-      <div class="movie-slide-list" ref="movieSlideList" :style="style">
+      <div ref="movieSlideList" class="movie-slide-list" :style="style">
         <div
           v-for="(item, index) in sortedItems"
           :key="index"
@@ -49,6 +50,7 @@ import { usePersistedData } from '@/stores/modules/persistedData'
 interface Props {
   title: string
   items: Item[]
+  keyTopic?: string
   sortedDropdown?: boolean
 }
 const props = withDefaults(defineProps<Props>(), {
@@ -64,7 +66,7 @@ const options: Option[] = [
   { label: 'Sort by help wanted issues', value: 'issues' },
   { label: 'Sort by updated', value: 'updated' }
 ]
-const sortOption = ref<string>('')
+const sortOption = ref<string>(store.sorteds[props.keyTopic])
 const roundedHalfScreenWidth = Math.round(window.innerWidth / 2)
 
 const hasItems = computed(() => props.items.length && window.innerWidth < props.items.length * 260)
@@ -97,6 +99,7 @@ const toggleBookmarkItem = (item: Item) => {
 
 const updateSortOption = (value: string) => {
   sortOption.value = value
+  store.updateSorted(props.keyTopic, value)
 }
 
 const scrollLeft = () => {
@@ -210,7 +213,7 @@ const openLink = (link: string) => {
     transition: all ease 0.3s;
 
     &:hover {
-      transform: scale(1.3);
+      transform: scale(1.4);
     }
   }
 }

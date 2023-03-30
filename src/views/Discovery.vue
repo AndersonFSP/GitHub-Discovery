@@ -12,6 +12,7 @@
       :key="slide.key"
       :title="slide.title"
       :items="slide.items"
+      :keyTopic="slide.key"
     />
   </section>
 </template>
@@ -21,6 +22,7 @@ import { ref, computed } from 'vue'
 import FilterList from '@/components/FilterList/FilterList.vue'
 import Slide from '@/components/Slide/Slide.vue'
 import { usePersistedData } from '@/stores/modules/persistedData'
+import { KeyTopic } from '@/stores/modules/persistedData/types'
 
 const { bookmarks, topics, updateTopicsToShow } = usePersistedData()
 const checkedNames = ref([])
@@ -90,7 +92,7 @@ const repositories = [
     stars: 15,
     forks: 23,
     issues: 38,
-    updated: 1
+    updated: 800
   },
   {
     image:
@@ -178,17 +180,32 @@ const repositories = [
 const slides = [
   {
     title: 'Vue',
-    key: 'vue',
+    key: KeyTopic.Vue,
     items: [...repositories]
   },
   {
     title: 'Javascript',
-    key: 'javascript',
+    key: KeyTopic.Javascript,
     items: [...repositories]
   },
   {
     title: 'Typescript',
-    key: 'typescript',
+    key: KeyTopic.Typescript,
+    items: [...repositories]
+  },
+  {
+    title: 'Go',
+    key: KeyTopic.Go,
+    items: [...repositories]
+  },
+  {
+    title: 'CSS',
+    key: KeyTopic.Css,
+    items: [...repositories]
+  },
+  {
+    title: 'Node',
+    key: KeyTopic.Node,
     items: [...repositories]
   }
 ]

@@ -2,18 +2,18 @@
   <section class="login">
     <FormBox title="Login" @on-submit="validate">
       <InputText
+        id="email"
         v-model="form.email"
         label="Email"
         type="email"
-        id="email"
         message="email is not valid"
         :status="inputStatus.email"
       />
       <InputText
+        id="password"
         v-model="form.password"
         label="Password"
         type="password"
-        id="password"
         message="password is not valid"
         :status="inputStatus.password"
       />

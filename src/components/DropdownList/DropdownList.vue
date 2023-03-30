@@ -8,7 +8,7 @@
       <li
         v-for="(option, index) in options"
         :key="index"
-        :class="selectedIndex === index ? 'active' : ''"
+        :class="selectedIndex === index || selected === option.value ? 'active' : ''"
         @click="selectOption(option)"
       >
         {{ option.label }}
@@ -25,11 +25,12 @@ import { Option } from './types'
 interface Props {
   title: string
   options: Option[]
+  selected?: string
 }
 interface Emits {
   (event: 'on-change', value: string): string
 }
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), { selected: '' })
 
 const emit = defineEmits<Emits>()
 
@@ -48,9 +49,6 @@ const selectOption = (option: Option) => {
   showDropdown.value = false
   emit('on-change', option.value)
 }
-// onMounted(() => {
-//   selectedIndex.value = 1
-// })
 </script>
 
 <style scoped lang="less">

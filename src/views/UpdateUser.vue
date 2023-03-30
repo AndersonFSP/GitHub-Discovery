@@ -2,17 +2,17 @@
   <section class="update">
     <FormBox title="My Account" @on-submit="validate">
       <InputText
+        id="username"
         v-model="form.displayName"
         label="Username"
         message="username is not valid"
         :status="inputStatus.email"
-        id="username"
       />
       <InputText
+        id="email"
         v-model="form.email"
         label="Email"
         type="email"
-        id="email"
         message="email is not valid"
         :status="inputStatus.email"
       />
