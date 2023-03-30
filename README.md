@@ -1,4 +1,4 @@
-# Github Discovery
+# Github Discovery https://github-discovery-d894a.web.app/discovery
 
 This template should help get you started developing with Vue 3 in Vite.
 
