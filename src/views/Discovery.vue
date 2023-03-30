@@ -1,8 +1,12 @@
 <template>
   <section>
-    <FilterList title="Toggle topics to show" :checked="checked" :options="options" @on-change="ola" />
-    <Slide title="Vue" :items="movies" />
-    <Slide title="Javascript" :items="movies" />
+    <FilterList title="Toggle topics to show" :checked="checked" :options="options" @on-change="updateFilter" />
+    <Slide 
+      v-for="slide in filteredSlides"
+      :key="slide.key" 
+      :title="slide.title" 
+      :items="slide.items" 
+    />
   </section>
 </template>
 
@@ -20,11 +24,14 @@ const options = [
   { label: 'CSS', value: 'css' },
   { label: 'Node', value: 'node' },
  ]
- const ola = (value: string[]) => {
+ const updateFilter = (value: string[]) => {
    checkedNames.value = value
  }
+ 
+const filteredSlides = computed(() => slides.filter(slide => checkedNames.value.includes(slide.key) === true))
+
  const checked = computed(() => ['vue', 'javascript'])
- const movies = [
+ const repositories = [
   { 
     image: 'https://i0.wp.com/multarte.com.br/wp-content/uploads/2015/08/imagens-amor.jpg?w=1392&ssl=1',
     repositoryName: 'Awesome vue',
@@ -143,6 +150,23 @@ const options = [
     issues: 10,
     updated: 41,
   },
+]
+const slides = [
+   {
+    title: 'Vue',
+    key: 'vue',
+    items: repositories
+  },
+  {
+   title: 'Javascript',
+   key: 'javascript',
+   items: repositories
+  },
+  {
+   title: 'Typescript',
+   key: 'typescript',
+   items: repositories
+  }
 ]
 </script>
 
