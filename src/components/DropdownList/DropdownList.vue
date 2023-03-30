@@ -9,7 +9,7 @@
         v-for="(option, index) in options"
         :key="index"
         :class="selectedIndex === index ? 'active' : ''"
-        @click="selectOption(option, index)"
+        @click="selectOption(option)"
       >
         {{ option.label }}
       </li>
@@ -29,7 +29,7 @@ interface Props {
 interface Emits {
   (event: 'on-change', value: string): string
 }
-defineProps<Props>()
+const props = defineProps<Props>()
 
 const emit = defineEmits<Emits>()
 
@@ -42,12 +42,15 @@ const toggleDropdown = () => {
   showDropdown.value = !showDropdown.value
 }
 
-const selectOption = (option: Option, index: number) => {
+const selectOption = (option: Option) => {
+  selectedIndex.value = props.options.findIndex((item) => item.value === option.value)
   selectedOption.value = option
   showDropdown.value = false
-  selectedIndex.value = index
   emit('on-change', option.value)
 }
+// onMounted(() => {
+//   selectedIndex.value = 1
+// })
 </script>
 
 <style scoped lang="less">
@@ -59,7 +62,7 @@ const selectOption = (option: Option, index: number) => {
 .dropdown-menu {
   position: absolute;
   top: 100%;
-  left: @size-spacing-4;
+  left: 100%;
   width: 250px;
   background-color: @background-primary;
   border: 1px solid @base-primary;

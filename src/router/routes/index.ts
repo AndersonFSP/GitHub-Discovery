@@ -8,19 +8,27 @@ export const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'login',
-    component: Login
+    component: Login,
+    meta: {
+      title: 'Login'
+    }
   },
   {
     path: '/register',
     name: 'register',
-    component: Register
+    component: Register,
+    meta: {
+      title: 'Register'
+    }
   },
   {
     path: '/discovery',
     name: 'discovery',
     component: Discovery,
     meta: {
-      requiresAuth: true
+      requiresAuth: true,
+      header: true,
+      title: 'Home'
     }
   },
   {
@@ -28,7 +36,9 @@ export const routes: RouteRecordRaw[] = [
     name: 'update',
     component: UpdateUser,
     meta: {
-      requiresAuth: true
+      requiresAuth: true,
+      header: true,
+      title: 'My Account'
     }
   }
 ]

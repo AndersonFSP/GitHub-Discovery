@@ -80,11 +80,11 @@ input {
   }
 
   &.active {
-    background-color: @element-select;
-    color: @text-secondary;
+    background-color: @button-primary;
+    color: @text-primary;
 
     &:hover {
-      background-color: @element-select-hover;
+      background-color: @button-primary-hover;
     }
   }
 }

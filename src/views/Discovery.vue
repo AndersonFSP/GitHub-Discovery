@@ -3,7 +3,7 @@
     <Slide title="My Bookmarks" :items="bookmarks" :sortedDropdown="false" />
     <FilterList
       title="Toggle topics to show"
-      :checked="checked"
+      :checked="topics"
       :options="options"
       @on-change="updateFilter"
     />
@@ -22,7 +22,7 @@ import FilterList from '@/components/FilterList/FilterList.vue'
 import Slide from '@/components/Slide/Slide.vue'
 import { usePersistedData } from '@/stores/modules/persistedData'
 
-const { bookmarks } = usePersistedData()
+const { bookmarks, topics, updateTopicsToShow } = usePersistedData()
 const checkedNames = ref([])
 const options = [
   { label: 'Vue', value: 'vue' },
@@ -34,13 +34,13 @@ const options = [
 ]
 const updateFilter = (value: string[]) => {
   checkedNames.value = value
+  updateTopicsToShow(value)
 }
 
 const filteredSlides = computed(() =>
   slides.filter((slide) => checkedNames.value.includes(slide.key) === true)
 )
 
-const checked = computed(() => ['vue', 'javascript'])
 const repositories = [
   {
     image:
@@ -179,17 +179,17 @@ const slides = [
   {
     title: 'Vue',
     key: 'vue',
-    items: repositories
+    items: [...repositories]
   },
   {
     title: 'Javascript',
     key: 'javascript',
-    items: repositories
+    items: [...repositories]
   },
   {
     title: 'Typescript',
     key: 'typescript',
-    items: repositories
+    items: [...repositories]
   }
 ]
 </script>

@@ -18,6 +18,7 @@ module.exports = {
     'vue/multiline-html-element-content-newline': 'off',
     'vue/html-self-closing': 'off',
     semi: ['error', 'never'],
+  'vue/attributes-order': 'error',
     camelcase: 1,
     'vue/script-setup-uses-vars': 'error',
     'vue/max-attributes-per-line': [

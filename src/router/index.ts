@@ -8,6 +8,7 @@ const router = createRouter({
 })
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.meta?.requiresAuth ? true : false
+  document.title = `GitHub Discovery | ${to.meta.title}`
   if (!AuthenticationService.getCurrentUser() && requiresAuth) next({ name: 'login' })
   else next()
 })

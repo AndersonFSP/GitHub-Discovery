@@ -6,7 +6,7 @@
       :options="options"
       @on-change="updateSortOption"
     />
-    <Heading v-else :level="3">{{ title }}</Heading>
+    <Heading v-else :level="2">{{ title }}</Heading>
     <button class="movie-slide-button movie-slide-prev" @click="scrollLeft" v-if="hasItems">
       <i class="fa fa-chevron-left"></i>
     </button>
@@ -29,7 +29,7 @@
                 'favorite-icon',
                 store.findBookmarkIndex(item) === -1 ? 'fa fa-star-o' : 'fa fa-star'
               ]"
-              @click.stop="favoriteItem(item)"
+              @click.stop="toggleBookmarkItem(item)"
             ></i>
           </div>
         </div>
@@ -39,7 +39,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import Heading from '@/components/Heading/Heading.vue'
 import DropdownList from '@/components/DropdownList/DropdownList.vue'
 import { Option } from '@/components/DropdownList/types'
@@ -53,13 +53,10 @@ interface Props {
 }
 const props = withDefaults(defineProps<Props>(), {
   items: () => [],
-  sortefDropdown: true
+  sortedDropdown: true
 })
 
 const store = usePersistedData()
-const favoriteItem = (item: Item) => {
-  store.updateBookmark(item)
-}
 const scrollx = ref(0)
 const options: Option[] = [
   { label: 'Sort by Star', value: 'stars' },
@@ -93,6 +90,10 @@ const sortedItems = computed(() => {
   })
   return itemsCopy
 })
+
+const toggleBookmarkItem = (item: Item) => {
+  store.updateBookmark(item)
+}
 
 const updateSortOption = (value: string) => {
   sortOption.value = value
