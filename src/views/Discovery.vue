@@ -53,27 +53,27 @@ const slides = [
   {
     title: 'Javascript',
     key: KeyTopic.Javascript,
-    items: [...repositories.vue]
+    items: [...repositories.javascript]
   },
   {
     title: 'Typescript',
     key: KeyTopic.Typescript,
-    items: [...repositories.vue]
+    items: [...repositories.typescript]
   },
   {
     title: 'Go',
     key: KeyTopic.Go,
-    items: [...repositories.vue]
+    items: [...repositories.go]
   },
   {
     title: 'CSS',
     key: KeyTopic.Css,
-    items: [...repositories.vue]
+    items: [...repositories.css]
   },
   {
     title: 'Node',
     key: KeyTopic.Node,
-    items: [...repositories.vue]
+    items: [...repositories.node]
   }
 ]
 </script>
