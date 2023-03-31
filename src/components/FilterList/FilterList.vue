@@ -5,6 +5,7 @@
       v-for="option in options"
       :key="option"
       :for="option.value"
+      data-testid="filter-list-item"
       :class="['label-filter', checkedNames.includes(option.value) ? 'active' : '']"
     >
       <input

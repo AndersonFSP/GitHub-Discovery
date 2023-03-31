@@ -28,13 +28,21 @@ const emit = defineEmits<Emits>()
   display: flex;
   flex-direction: column;
   gap: @size-spacing-4;
-  width: 50%;
   padding: @size-spacing-5;
   background-color: @background-primary;
   border-radius: 4px;
+  width: 100%;
 
   .button-container {
     margin-top: @size-spacing-3;
+  }
+
+  @media (min-width: 768px) {
+    width: 70%;
+  }
+
+  @media (min-width: 992px) {
+    width: 50%;
   }
 }
 </style>

@@ -80,6 +80,6 @@ const slides = [
 
 <style scoped lang="less">
 section {
-  margin: @size-spacing-6;
+  margin: @size-spacing-6 6%;
 }
 </style>

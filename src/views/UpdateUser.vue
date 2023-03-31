@@ -6,7 +6,7 @@
         v-model="form.displayName"
         label="Username"
         message="username is not valid"
-        :status="inputStatus.email"
+        :status="inputStatus.displayName"
       />
       <InputText
         id="email"
@@ -69,9 +69,13 @@ form.value = { displayName, email }
 <style lang="less" scoped>
 .update {
   display: flex;
-  justify-content: left;
   align-items: center;
   height: 80vh;
-  margin-left: @size-spacing-5;
+  margin: @size-spacing-6 6%;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+    margin: 0;
+  }
 }
 </style>

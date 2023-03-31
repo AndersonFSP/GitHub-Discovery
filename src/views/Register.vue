@@ -6,7 +6,7 @@
         v-model="form.displayName"
         label="Username"
         message="username is not valid"
-        :status="inputStatus.email"
+        :status="inputStatus.displayName"
       />
       <InputText
         id="email"
@@ -28,7 +28,7 @@
         <Heading v-if="isRegisterError" :level="4" class="register-error">
           An error occurred during register
         </Heading>
-        <Button label="Register" :disabled="isLoading" />
+        <Button label="Create" :disabled="isLoading" />
       </template>
     </FormBox>
   </section>
@@ -83,12 +83,6 @@ const validate = async () => {
   align-items: center;
   height: 100vh;
 
-  form {
-    width: 50%;
-    padding: 50px;
-    background-color: @background-primary;
-    border-radius: 4px;
-  }
   .register-error {
     color: @element-error;
     margin-bottom: @size-spacing-2;

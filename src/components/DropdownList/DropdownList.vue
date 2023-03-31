@@ -1,5 +1,5 @@
 <template>
-  <div class="dropdown">
+  <div class="dropdown" data-testid="dropdown-list">
     <Heading :level="2" class="dropdown-toggle" @click="toggleDropdown">
       {{ title }}
       <i data-testid="dropdown-icon" :class="icon"></i>

@@ -1,20 +1,19 @@
 <template>
-  <header>
-    <section class="header-container">
-      <nav>
+  <header class="header">
+    <nav class="header-container">
+      <section>
         <img
           src="https://swordhealth.pt/wp-content/uploads/2022/01/swordhealth_logo_original.svg"
           alt="Sword health logo"
           height="25"
         />
-        <Link link="/discovery">Discovery</Link>
-      </nav>
-
-      <nav>
+        <Link class="link" link="/discovery">Discovery</Link>
+      </section>
+      <section>
         <Link link="/update-user">{{ userDisplayName }}</Link>
         <BaseText class="logout" @click="logout">Logout</BaseText>
-      </nav>
-    </section>
+      </section>
+    </nav>
   </header>
 </template>
 
@@ -37,7 +36,7 @@ const logout = () => {
 </script>
 
 <style lang="less" scoped>
-header {
+.header {
   position: fixed;
   top: 0;
   left: 0;
@@ -45,7 +44,7 @@ header {
   background-color: @background-primary;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  nav {
+  section {
     display: flex;
     align-items: center;
     gap: @size-spacing-4;
@@ -58,11 +57,9 @@ header {
 }
 
 .header-container {
-  padding: @size-spacing-4 @size-spacing-5;
-  margin: 0 auto;
+  padding: @size-spacing-4 6%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: relative;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="slide">
+  <div class="slide" data-testid="slide">
     <DropdownList
       v-if="sortedDropdown"
       :title="title"

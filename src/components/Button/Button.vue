@@ -1,6 +1,6 @@
 <template>
-  <button :class="buttonClass" :aria-disabled="disabled" :disabled="disabled">
-    {{ props.label }}
+  <button aria-label="label" :class="buttonClass" :aria-disabled="disabled" :disabled="disabled">
+    {{ label }}
   </button>
 </template>
 
@@ -22,7 +22,7 @@ button {
   display: block;
   width: 100%;
   border-radius: 5px;
-  padding: 10px 3px;
+  padding: @size-spacing-2 @size-spacing-2;
   font-size: 1.2em;
   border: none;
   color: @text-primary;
