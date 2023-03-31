@@ -1,5 +1,5 @@
 <template>
-  <div class="movie-slide">
+  <div class="slide">
     <DropdownList
       v-if="sortedDropdown"
       :title="title"
@@ -8,24 +8,31 @@
       @on-change="updateSortOption"
     />
     <Heading v-else :level="2">{{ title }}</Heading>
-    <button v-if="hasItems" class="movie-slide-button movie-slide-prev" @click="scrollLeft">
-      <i class="fa fa-chevron-left"></i>
+    <button v-if="hasItems" class="slide-button slide-prev" @click="scrollLeft">
+      <i data-testid="slide-button-left" class="fa fa-chevron-left"></i>
     </button>
-    <button v-if="hasItems" class="movie-slide-button movie-slide-next" @click="scrollRight">
-      <i class="fa fa-chevron-right"></i>
+    <button v-if="hasItems" class="slide-button slide-next" @click="scrollRight">
+      <i data-testid="slide-button-right" class="fa fa-chevron-right"></i>
     </button>
-    <div class="movie-slide-list-container">
-      <div ref="movieSlideList" class="movie-slide-list" :style="style">
+    <div class="slide-list-container">
+      <div class="slide-list" :style="style">
         <div
           v-for="(item, index) in sortedItems"
           :key="index"
-          :class="['movie-slide-item', props.size]"
+          data-testid="slide-item"
+          :class="['slide-item', props.size]"
           @click="openLink(item.link)"
         >
-          <img :src="item.image" alt="Movie Poster" class="movie-slide-poster" />
+          <img
+            data-testid="slide-image"
+            :src="item.image"
+            alt="slide poster"
+            class="slide-poster"
+          />
           <div class="overlay">
             <Heading :level="3">{{ item.repositoryName }}</Heading>
             <i
+              data-testid="favorite-icon"
               :class="[
                 'favorite-icon',
                 store.findBookmarkIndex(item) === -1 ? 'fa fa-star-o' : 'fa fa-star'
@@ -127,23 +134,23 @@ const openLink = (link: string) => {
 </script>
 
 <style scoped lang="less">
-.movie-slide {
+.slide {
   margin: 20px 0;
   position: relative;
 
-  &:hover .movie-slide-button {
+  &:hover .slide-button {
     opacity: 1;
   }
 
-  .movie-slide-list-container {
+  .slide-list-container {
     overflow-x: hidden;
   }
 
-  .movie-slide-list {
+  .slide-list {
     transition: margin ease 0.4s;
   }
 
-  .movie-slide-item {
+  .slide-item {
     display: inline-block;
     position: relative;
     cursor: pointer;
@@ -191,7 +198,7 @@ const openLink = (link: string) => {
     transform: scale(0.9);
   }
 
-  .movie-slide-button {
+  .slide-button {
     position: absolute;
     opacity: 0;
     top: 50%;
@@ -206,12 +213,12 @@ const openLink = (link: string) => {
     transition: all 0.3s ease-out;
   }
 
-  .movie-slide-prev {
+  .slide-prev {
     left: 0;
     margin-left: -30px;
   }
 
-  .movie-slide-next {
+  .slide-next {
     right: 0;
     margin-right: -30px;
   }

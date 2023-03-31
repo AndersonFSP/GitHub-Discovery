@@ -48,7 +48,7 @@ import { useRouter } from 'vue-router'
 const store = useAuthentication()
 const router = useRouter()
 const { setErrors, inputStatus } = useFormErrors()
-const form = reactive({ email: '', username: '', password: '' })
+const form = reactive({ email: '', password: '' })
 const isloginError = ref<boolean>(false)
 const isLoading = ref<boolean>(false)
 

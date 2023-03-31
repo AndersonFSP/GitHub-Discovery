@@ -8,12 +8,12 @@
       :class="['label-filter', checkedNames.includes(option.value) ? 'active' : '']"
     >
       <input
+        :id="option.value"
+        v-model="checkedNames"
         class="checkbox-input"
         type="checkbox"
         checked
-        :id="option.value"
         :value="option.value"
-        v-model="checkedNames"
         @change="onChange"
       />
       {{ option.label }}
@@ -24,10 +24,11 @@
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
 import Heading from '@/components/Heading/Heading.vue'
+import { FilterListOption } from './types'
 
 interface Props {
-  options: { label: string; value: 'string' }[]
-  checked: string[]
+  options: FilterListOption[]
+  checked?: string[]
   title: string
 }
 interface Emits {
@@ -35,7 +36,8 @@ interface Emits {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  options: () => []
+  options: () => [],
+  checked: () => []
 })
 const emit = defineEmits<Emits>()
 const checkedNames = ref([])
@@ -44,8 +46,10 @@ const onChange = () => {
 }
 
 onMounted(() => {
-  checkedNames.value = props.checked
-  emit('on-change', checkedNames.value)
+  if (props.checked.length) {
+    checkedNames.value = props.checked
+    emit('on-change', checkedNames.value)
+  }
 })
 </script>
 
@@ -89,3 +93,7 @@ input {
   }
 }
 </style>
+
+export { FilterListOption }
+
+export { FilterListOption }

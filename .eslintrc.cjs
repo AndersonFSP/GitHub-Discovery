@@ -25,7 +25,7 @@ module.exports = {
       'error',
       {
         singleline: {
-          max: 3
+          max: 4
         },
         multiline: {
           max: 1

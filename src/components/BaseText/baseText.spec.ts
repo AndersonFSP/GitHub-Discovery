@@ -5,7 +5,7 @@ const myText = 'My Text'
 const renderBaseText = () => render(BaseText, { slots: { default: myText } })
 
 describe('BaseText', () => {
-  it('should render Link', () => {
+  it('should render BaseText', () => {
     renderBaseText()
     screen.getByText(myText)
   })
