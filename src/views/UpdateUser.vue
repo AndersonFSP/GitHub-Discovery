@@ -17,7 +17,7 @@
         :status="inputStatus.email"
       />
       <template #button>
-        <Button label="save" />
+        <Button label="save" :disabled="isLoading" />
       </template>
     </FormBox>
   </section>
@@ -37,20 +37,23 @@ const store = useAuthentication()
 const router = useRouter()
 const { setErrors, inputStatus } = useFormErrors()
 const form = ref({ email: '', displayName: '' })
-const registerError = ref<boolean>(false)
+const isUpdateError = ref<boolean>(false)
+const isLoading = ref<boolean>(false)
 
 const update = async () => {
+  isLoading.value = true
   try {
     await store.update(form.value)
     router.push({ name: 'login' })
   } catch (error) {
-    registerError.value = true
+    isUpdateError.value = true
+    isLoading.value = false
     console.error(error)
   }
 }
 
 const validate = async () => {
-  registerError.value = false
+  isUpdateError.value = false
   try {
     await updateSchema.validate(form.value, { abortEarly: false })
     update()

@@ -1,13 +1,19 @@
 <template>
-  <button>{{ props.label }}</button>
+  <button :class="buttonClass" :aria-disabled="disabled" :disabled="disabled">
+    {{ props.label }}
+  </button>
 </template>
 
 <script lang="ts" setup>
+import { computed } from 'vue'
+
 interface Props {
   label: string
+  disabled?: boolean
 }
 
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), { disabled: false })
+const buttonClass = computed(() => (props.disabled ? 'disabled' : ''))
 </script>
 
 <style scoped lang="less">
@@ -25,7 +31,14 @@ button {
   text-transform: capitalize;
   text-align: center;
 
-  &:hover {
+  &.disabled {
+    background-color: #9599a6;
+    cursor: not-allowed;
+    color: #c9cad4;
+    pointer-events: none;
+  }
+
+  &:hover:not(.disabled) {
     background-color: @button-primary-hover;
   }
 }

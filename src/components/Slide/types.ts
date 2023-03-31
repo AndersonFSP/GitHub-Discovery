@@ -7,3 +7,8 @@ export interface Item {
   issues: number
   updated: number
 }
+
+export enum SlideSize {
+  Small = 'sm',
+  Medium = 'md'
+}

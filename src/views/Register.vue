@@ -25,7 +25,10 @@
         :status="inputStatus.password"
       />
       <template #button>
-        <Button label="Register" />
+        <Heading v-if="isRegisterError" :level="4" class="register-error">
+          An error occurred during register
+        </Heading>
+        <Button label="Register" :disabled="isLoading" />
       </template>
     </FormBox>
   </section>
@@ -36,6 +39,7 @@ import { reactive, ref } from 'vue'
 import InputText from '@/components/InputText/InputText.vue'
 import Button from '@/components/Button/Button.vue'
 import FormBox from '@/components/FormBox/FormBox.vue'
+import Heading from '@/components/Heading/Heading.vue'
 import { useAuthentication } from '@/stores/modules/authentication'
 import { useFormErrors } from '@/composables/useFormErrors'
 import { registerSchema } from '@/validation'
@@ -45,20 +49,24 @@ const store = useAuthentication()
 const router = useRouter()
 const { setErrors, inputStatus } = useFormErrors()
 const form = reactive({ email: '', displayName: '', password: '' })
-const registerError = ref<boolean>(false)
+const isRegisterError = ref<boolean>(false)
+const isLoading = ref<boolean>(false)
 
 const register = async () => {
+  isLoading.value = true
   try {
     await store.register(form)
     router.push({ name: 'login' })
   } catch (error) {
-    registerError.value = true
+    isRegisterError.value = true
     console.error(error)
+  } finally {
+    isLoading.value = false
   }
 }
 
 const validate = async () => {
-  registerError.value = false
+  isRegisterError.value = false
   try {
     await registerSchema.validate(form, { abortEarly: false })
     register()
@@ -80,6 +88,12 @@ const validate = async () => {
     padding: 50px;
     background-color: @background-primary;
     border-radius: 4px;
+  }
+  .register-error {
+    color: @element-error;
+    margin-bottom: @size-spacing-2;
+    position: relative;
+    text-align: left;
   }
 
   .button-container {

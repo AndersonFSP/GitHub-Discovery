@@ -1,6 +1,6 @@
 <template>
   <section>
-    <Slide title="My Bookmarks" :items="bookmarks" :sortedDropdown="false" />
+    <Slide title="My Bookmarks" size="sm" :items="bookmarks" :sortedDropdown="false" />
     <FilterList
       title="Toggle topics to show"
       :checked="topics"
@@ -28,8 +28,8 @@ const { bookmarks, topics, updateTopicsToShow } = usePersistedData()
 const checkedNames = ref([])
 const options = [
   { label: 'Vue', value: 'vue' },
-  { label: 'Typescript', value: 'typescript' },
   { label: 'Javascript', value: 'javascript' },
+  { label: 'Typescript', value: 'typescript' },
   { label: 'Go', value: 'go' },
   { label: 'CSS', value: 'css' },
   { label: 'Node', value: 'node' }

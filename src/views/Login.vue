@@ -19,8 +19,10 @@
       />
 
       <template #button>
-        <h4 v-if="loginError" class="login-error">An error occurred during login</h4>
-        <Button label="sign in" />
+        <Heading v-if="isloginError" :level="4" class="login-error">
+          An error occurred during login
+        </Heading>
+        <Button label="sign in" :disabled="isLoading" />
         <BaseText class="create-account-link">
           Don't have an account?
           <Link link="/register">Click here to sign up</Link>
@@ -37,6 +39,7 @@ import Button from '@/components/Button/Button.vue'
 import Link from '@/components/Link/Link.vue'
 import BaseText from '@/components/BaseText/BaseText.vue'
 import FormBox from '@/components/FormBox/FormBox.vue'
+import Heading from '@/components/Heading/Heading.vue'
 import { useAuthentication } from '@/stores/modules/authentication'
 import { loginSchema } from '@/validation'
 import { useFormErrors } from '@/composables/useFormErrors'
@@ -46,20 +49,24 @@ const store = useAuthentication()
 const router = useRouter()
 const { setErrors, inputStatus } = useFormErrors()
 const form = reactive({ email: '', username: '', password: '' })
-const loginError = ref<boolean>(false)
+const isloginError = ref<boolean>(false)
+const isLoading = ref<boolean>(false)
 
 const login = async () => {
+  isLoading.value = true
   try {
     await store.login(form)
     router.push({ name: 'discovery' })
   } catch (error) {
-    loginError.value = true
+    isloginError.value = true
     console.error(error)
+  } finally {
+    isLoading.value = false
   }
 }
 
 const validate = async () => {
-  loginError.value = false
+  isloginError.value = false
   try {
     await loginSchema.validate(form, { abortEarly: false })
     login()
@@ -77,15 +84,15 @@ const validate = async () => {
   height: 100vh;
 
   .login-error {
-    color: #e87c03;
-    margin-bottom: 5px;
+    color: @element-error;
+    margin-bottom: @size-spacing-2;
     position: relative;
     text-align: left;
   }
 
   .create-account-link {
     text-align: right;
-    margin-top: 15px;
+    margin-top: @size-spacing-3;
   }
 }
 </style>

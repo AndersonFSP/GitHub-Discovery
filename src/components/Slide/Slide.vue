@@ -19,7 +19,7 @@
         <div
           v-for="(item, index) in sortedItems"
           :key="index"
-          class="movie-slide-item"
+          :class="['movie-slide-item', props.size]"
           @click="openLink(item.link)"
         >
           <img :src="item.image" alt="Movie Poster" class="movie-slide-poster" />
@@ -44,7 +44,7 @@ import { computed, ref, onMounted } from 'vue'
 import Heading from '@/components/Heading/Heading.vue'
 import DropdownList from '@/components/DropdownList/DropdownList.vue'
 import { Option } from '@/components/DropdownList/types'
-import { Item } from './types'
+import { Item, SlideSize } from './types'
 import { usePersistedData } from '@/stores/modules/persistedData'
 
 interface Props {
@@ -52,10 +52,12 @@ interface Props {
   items: Item[]
   keyTopic?: string
   sortedDropdown?: boolean
+  size?: SlideSize
 }
 const props = withDefaults(defineProps<Props>(), {
   items: () => [],
-  sortedDropdown: true
+  sortedDropdown: true,
+  size: SlideSize.Medium
 })
 
 const store = usePersistedData()
@@ -69,9 +71,12 @@ const options: Option[] = [
 const sortOption = ref<string>(store.sorteds[props.keyTopic])
 const roundedHalfScreenWidth = Math.round(window.innerWidth / 2)
 
-const hasItems = computed(() => props.items.length && window.innerWidth < props.items.length * 260)
+const imageSize = computed(() => (props.size === SlideSize.Medium ? 260 : 200))
+const hasItems = computed(
+  () => props.items.length && window.innerWidth < props.items.length * imageSize.value
+)
 const style = computed(() => ({
-  width: `${props.items.length * 260}px`,
+  width: `${props.items.length * imageSize.value}px`,
   'margin-left': `${scrollx.value}px`
 }))
 
@@ -110,8 +115,9 @@ const scrollLeft = () => {
 
 const scrollRight = () => {
   let x = scrollx.value - roundedHalfScreenWidth
-  const widthCompleteList = props.items.length * 260
-  if (window.innerWidth - widthCompleteList > x) x = window.innerWidth - widthCompleteList - 260
+  const widthCompleteList = props.items.length * imageSize.value
+  if (window.innerWidth - widthCompleteList > x)
+    x = window.innerWidth - widthCompleteList - imageSize.value
   scrollx.value = x
 }
 
@@ -141,8 +147,16 @@ const openLink = (link: string) => {
     display: inline-block;
     position: relative;
     cursor: pointer;
-    width: 260px;
     height: 190px;
+
+    &.sm {
+      width: 200px;
+      height: 130px;
+    }
+    &.md {
+      width: 260px;
+      height: 190px;
+    }
 
     &:hover img {
       transform: scale(1);

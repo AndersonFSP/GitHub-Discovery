@@ -2,13 +2,14 @@
   <div class="dropdown">
     <Heading :level="2" class="dropdown-toggle" @click="toggleDropdown">
       {{ title }}
-      <i :class="icon"></i>
+      <i data-testid="dropdown-icon" :class="icon"></i>
     </Heading>
     <ul v-show="showDropdown" class="dropdown-menu">
       <li
         v-for="(option, index) in options"
         :key="index"
         :class="selectedIndex === index || selected === option.value ? 'active' : ''"
+        data-testid="list-item"
         @click="selectOption(option)"
       >
         {{ option.label }}
