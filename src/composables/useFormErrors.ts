@@ -4,7 +4,7 @@ import { StatusType } from '@/components/InputText/types'
 
 export const useFormErrors = () => {
   const errors = ref<string[]>([])
-  const inputStatus = computed(() =>
+  const inputStatus = computed<any>(() =>
     errors.value.reduce((accumulator, value) => ({ ...accumulator, [value]: StatusType.Error }), {})
   )
   function setErrors(validationError: ValidationError) {

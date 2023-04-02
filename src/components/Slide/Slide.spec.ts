@@ -1,11 +1,11 @@
-import { createTestingPinia } from '@pinia/testing';
+import { createTestingPinia } from '@pinia/testing'
 import { fireEvent, render, screen } from '@testing-library/vue'
 import { repositories } from '@/views/mocks/Discovery'
 import Slide from './Slide.vue'
 import { usePersistedData } from '@/stores/modules/persistedData'
 
 const props = { title: 'Vue', items: repositories.vue, keyTopic: 'vue' }
-const global = { plugins: [createTestingPinia()]}
+const global = { plugins: [createTestingPinia()] }
 const renderSlide = () => render(Slide, { props, global })
 
 describe('Slide', () => {
@@ -21,7 +21,7 @@ describe('Slide', () => {
     expect(screen.getAllByTestId('favorite-icon')).toHaveLength(repositories.vue.length)
     expect(screen.getAllByTestId('slide-image')).toHaveLength(repositories.vue.length)
     expect(screen.getAllByTestId('slide-item')).toHaveLength(repositories.vue.length)
-    repositories.vue.forEach(slide => {
+    repositories.vue.forEach((slide) => {
       screen.getByText(slide.repositoryName)
     })
   })

@@ -1,6 +1,11 @@
 <template>
   <section>
-    <Slide title="My Bookmarks" size="sm" :items="bookmarks" :sortedDropdown="false" />
+    <Slide
+      title="My Bookmarks"
+      :size="bookmarkSlideSize"
+      :items="bookmarks"
+      :sortedDropdown="false"
+    />
     <FilterList
       title="Toggle topics to show"
       :checked="topics"
@@ -19,15 +24,16 @@
 
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
-import FilterList from '@/components/FilterList/FilterList.vue'
-import Slide from '@/components/Slide/Slide.vue'
+import { FilterList, Slide } from '@/components'
 import { usePersistedData } from '@/stores/modules/persistedData'
-import { KeyTopic } from '@/stores/modules/persistedData/types'
 import { repositories } from '@/views/mocks/Discovery'
+import { SlideSize } from '../components/Slide/types'
+import type { FilterListOption } from '@/components/FilterList/types'
 
 const { bookmarks, topics, updateTopicsToShow } = usePersistedData()
-const checkedNames = ref([])
-const options = [
+const checkedNames = ref<string[]>([])
+const bookmarkSlideSize = SlideSize.Small
+const options: FilterListOption[] = [
   { label: 'Vue', value: 'vue' },
   { label: 'Javascript', value: 'javascript' },
   { label: 'Typescript', value: 'typescript' },
@@ -47,32 +53,32 @@ const filteredSlides = computed(() =>
 const slides = [
   {
     title: 'Vue',
-    key: KeyTopic.Vue,
+    key: 'vue',
     items: [...repositories.vue]
   },
   {
     title: 'Javascript',
-    key: KeyTopic.Javascript,
+    key: 'javascript',
     items: [...repositories.javascript]
   },
   {
     title: 'Typescript',
-    key: KeyTopic.Typescript,
+    key: 'typescript',
     items: [...repositories.typescript]
   },
   {
     title: 'Go',
-    key: KeyTopic.Go,
+    key: 'go',
     items: [...repositories.go]
   },
   {
     title: 'CSS',
-    key: KeyTopic.Css,
+    key: 'css',
     items: [...repositories.css]
   },
   {
     title: 'Node',
-    key: KeyTopic.Node,
+    key: 'node',
     items: [...repositories.node]
   }
 ]

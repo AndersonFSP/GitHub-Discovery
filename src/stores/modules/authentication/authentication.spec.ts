@@ -5,20 +5,20 @@ import { createPinia, setActivePinia } from 'pinia'
 import AuthenticationService from '@/services/AuthenticationService'
 import type { User } from 'firebase/auth'
 
-const initialState = { user: null, isUserLogged: false}
+const initialState = { user: null, isUserLogged: false }
 const user = {
   email: 'email',
   password: 'pass',
   displayName: 'string'
 }
 
-describe('useAuthentication', () => { 
+describe('useAuthentication', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
   })
   it('should have the correct initial state', () => {
     const { user, isUserLogged } = useAuthentication()
-    expect( { user, isUserLogged }).toEqual(initialState)
+    expect({ user, isUserLogged }).toEqual(initialState)
   })
 
   it('should toggle Auth', () => {

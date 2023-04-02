@@ -6,7 +6,7 @@
 <script setup lang="ts">
 import { useAuthentication } from '@/stores/modules/authentication'
 import { RouterView, useRoute } from 'vue-router'
-import Header from '@/components/Header/Header.vue'
+import { Header } from '@/components'
 
 const router = useRoute()
 const store = useAuthentication()

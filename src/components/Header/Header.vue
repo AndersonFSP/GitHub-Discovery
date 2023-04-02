@@ -18,19 +18,18 @@
 </template>
 
 <script setup lang="ts">
-import Link from '@/components/Link/Link.vue'
+import { BaseText, Link } from '@/components'
 import { useAuthentication } from '@/stores/modules/authentication'
 import { useRouter } from 'vue-router'
 import { computed } from 'vue'
-import BaseText from '@/components/BaseText/BaseText.vue'
 
 const store = useAuthentication()
 const router = useRouter()
 
-const userDisplayName = computed(() => store.user?.displayName || 'Username')
+const userDisplayName = computed(() => store.user?.displayName)
 
-const logout = () => {
-  store.logout()
+const logout = async () => {
+  await store.logout()
   router.push({ name: 'login' })
 }
 </script>

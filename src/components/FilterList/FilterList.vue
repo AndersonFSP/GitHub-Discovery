@@ -3,8 +3,9 @@
   <div class="filter-container">
     <label
       v-for="option in options"
-      :key="option"
+      :key="option.value"
       :for="option.value"
+      :aria-label="option.label"
       data-testid="filter-list-item"
       :class="['label-filter', checkedNames.includes(option.value) ? 'active' : '']"
     >
@@ -24,8 +25,8 @@
 
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
-import Heading from '@/components/Heading/Heading.vue'
-import { FilterListOption } from './types'
+import { Heading } from '@/components'
+import type { FilterListOption } from './types'
 
 interface Props {
   options: FilterListOption[]
@@ -41,7 +42,7 @@ const props = withDefaults(defineProps<Props>(), {
   checked: () => []
 })
 const emit = defineEmits<Emits>()
-const checkedNames = ref([])
+const checkedNames = ref<string[]>([])
 const onChange = () => {
   emit('on-change', checkedNames.value)
 }
@@ -94,7 +95,3 @@ input {
   }
 }
 </style>
-
-export { FilterListOption }
-
-export { FilterListOption }

@@ -1,4 +1,4 @@
-import { fireEvent, getByTestId, getByText, render, screen, within } from '@testing-library/vue'
+import { fireEvent, render, screen, within } from '@testing-library/vue'
 import Discovery from '@/views/Discovery.vue'
 import { createTestingPinia } from '@pinia/testing'
 import { createRouter, createWebHistory } from 'vue-router'
@@ -16,12 +16,12 @@ const router = createRouter({
     {
       path: '/discovery',
       component: defineComponent({ template: `<div></div>` }),
-      name: 'discovery',
+      name: 'discovery'
     },
     {
       path: '/register',
       component: defineComponent({ template: `<div></div>` }),
-      name: 'register',
+      name: 'register'
     }
   ]
 })
@@ -33,7 +33,7 @@ const options = [
   { label: 'CSS', value: 'css' },
   { label: 'Node', value: 'node' }
 ]
-const persistedData = { 
+const persistedData = {
   bookmarks: [],
   topics: ['vue', 'javascript'],
   sorteds: { vue: '', javascript: '', typescript: '', go: '', css: '', node: '' }
@@ -62,9 +62,8 @@ describe('Login', () => {
     await fireEvent.click(screen.getByText('Vue'))
     screen.getByTestId('dropdown-list')
 
-    repositories.vue.forEach(vueRepositories => {
+    repositories.vue.forEach((vueRepositories) => {
       screen.getByText(vueRepositories.repositoryName)
     })
   })
-
 })

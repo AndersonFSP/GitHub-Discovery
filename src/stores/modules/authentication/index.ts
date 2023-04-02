@@ -7,7 +7,11 @@ export const useAuthentication = defineStore('authentication', {
     user: null,
     isUserLogged: false
   }),
-
+  getters: {
+    userDisplayName({ user }) {
+      return user?.displayName
+    }
+  },
   actions: {
     toggleAuth() {
       this.isUserLogged = !this.isUserLogged
@@ -21,7 +25,11 @@ export const useAuthentication = defineStore('authentication', {
     },
     async update(user: Omit<UserParams, 'password'>) {
       await AuthenticationService.update(user)
-      this.toggleAuth()
+      const userUpdated = AuthenticationService.getCurrentUser()
+      this.user = userUpdated
+    },
+    getcurrentUser() {
+      return AuthenticationService.getCurrentUser()
     },
     verifyIfIsLogged() {
       const user = AuthenticationService.getCurrentUser()

@@ -16,12 +16,12 @@ const router = createRouter({
     {
       path: '/discovery',
       component: defineComponent({ template: `<div></div>` }),
-      name: 'discovery',
+      name: 'discovery'
     },
     {
       path: '/register',
       component: defineComponent({ template: `<div></div>` }),
-      name: 'register',
+      name: 'register'
     }
   ]
 })
@@ -57,7 +57,7 @@ describe('Login', () => {
   it('should submit the form if it is fill out and redirect to discovery page', async () => {
     renderLogin()
     const store = useAuthentication()
-    const form = { email: 'test@out.com', password: '12234567897554'}
+    const form = { email: 'test@out.com', password: '12234567897554' }
     const inputEmail = screen.getByLabelText('Email')
     await fireEvent.update(inputEmail, form.email)
     const inputPassword = screen.getByLabelText('Password')
@@ -76,7 +76,7 @@ describe('Login', () => {
     const store = useAuthentication()
     vi.spyOn(store, 'login').mockRejectedValueOnce({})
 
-    const form = { email: 'test@out.com', password: '12234567897554'}
+    const form = { email: 'test@out.com', password: '12234567897554' }
     const inputEmail = screen.getByLabelText('Email')
     await fireEvent.update(inputEmail, form.email)
     const inputPassword = screen.getByLabelText('Password')

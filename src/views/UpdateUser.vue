@@ -25,13 +25,13 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import InputText from '@/components/InputText/InputText.vue'
-import FormBox from '@/components/FormBox/FormBox.vue'
-import Button from '@/components/Button/Button.vue'
+import { InputText, FormBox, Button } from '@/components'
 import { useAuthentication } from '@/stores/modules/authentication'
 import { useFormErrors } from '@/composables/useFormErrors'
 import { updateSchema } from '@/validation'
 import { useRouter } from 'vue-router'
+import type { User } from 'firebase/auth'
+import type { ValidationError } from 'yup'
 
 const store = useAuthentication()
 const router = useRouter()
@@ -44,7 +44,7 @@ const update = async () => {
   isLoading.value = true
   try {
     await store.update(form.value)
-    router.push({ name: 'login' })
+    router.go(0)
   } catch (error) {
     isUpdateError.value = true
     isLoading.value = false
@@ -58,12 +58,12 @@ const validate = async () => {
     await updateSchema.validate(form.value, { abortEarly: false })
     update()
   } catch (err) {
-    setErrors(err)
+    setErrors(err as ValidationError)
   }
 }
 
-const { displayName, email } = store.user
-form.value = { displayName, email }
+const { displayName, email } = store.user as User
+form.value = { displayName: displayName || '', email: email || '' }
 </script>
 
 <style lang="less" scoped>

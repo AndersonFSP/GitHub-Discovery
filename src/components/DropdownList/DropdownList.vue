@@ -19,9 +19,9 @@
 </template>
 
 <script setup lang="ts">
-import Heading from '@/components/Heading/Heading.vue'
+import { Heading } from '@/components'
 import { ref, computed } from 'vue'
-import { Option } from './types'
+import type { Option } from './types'
 
 interface Props {
   title: string

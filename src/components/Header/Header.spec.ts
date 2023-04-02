@@ -11,23 +11,27 @@ const router = createRouter({
     {
       path: '/update-user',
       component: defineComponent({ template: `<div></div>` }),
-      name: 'User',
+      name: 'User'
     },
     {
       path: '/login',
       component: defineComponent({ template: `<div></div>` }),
-      name: 'login',
+      name: 'login'
     },
     {
       path: '/discovery',
       component: defineComponent({ template: `<div></div>` }),
-      name: 'Discovery',
+      name: 'Discovery'
     }
   ]
 })
 const user = { displayName: 'Anderson Filipe' }
-const renderHeader = () => 
-  render(Header, { global: { plugins: [createTestingPinia({ initialState: { authentication: { user }} }), router]} })
+const renderHeader = () =>
+  render(Header, {
+    global: {
+      plugins: [createTestingPinia({ initialState: { authentication: { user } } }), router]
+    }
+  })
 
 describe('Header', () => {
   it('should render Header', () => {

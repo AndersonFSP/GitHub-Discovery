@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts" setup>
-import Heading from '@/components/Heading/Heading.vue'
+import { Heading } from '@/components'
 
 interface Props {
   title: string

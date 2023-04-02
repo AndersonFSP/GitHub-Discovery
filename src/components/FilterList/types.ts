@@ -1,4 +1,4 @@
-export interface FilterListOption { 
-  label: string 
-  value: 'string' 
+export interface FilterListOption {
+  label: string
+  value: string
 }

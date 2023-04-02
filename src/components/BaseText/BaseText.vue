@@ -8,6 +8,6 @@
 
 <style scoped lang="less">
 .base-text {
-  color: #fff;
+  color: @text-primary;
 }
 </style>

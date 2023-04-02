@@ -1,5 +1,5 @@
 <template>
-  <button aria-label="label" :class="buttonClass" :aria-disabled="disabled" :disabled="disabled">
+  <button :aria-label="label" :class="buttonClass" :aria-disabled="disabled" :disabled="disabled">
     {{ label }}
   </button>
 </template>

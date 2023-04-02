@@ -10,15 +10,15 @@ const item: Item = {
   stars: 2,
   forks: 4,
   issues: 5,
-  updated: 1,
-} 
-describe('usePersistedData', () => { 
+  updated: 1
+}
+describe('usePersistedData', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
   })
   it('should have the correct initial state', () => {
-    const  { bookmarks, topics, sorteds } = usePersistedData()
-    expect({ bookmarks, topics, sorteds  }).toEqual({ 
+    const { bookmarks, topics, sorteds } = usePersistedData()
+    expect({ bookmarks, topics, sorteds }).toEqual({
       bookmarks: [],
       topics: ['vue', 'javascript'],
       sorteds: { vue: '', javascript: '', typescript: '', go: '', css: '', node: '' }
@@ -26,14 +26,14 @@ describe('usePersistedData', () => {
   })
 
   it('should add bookmark if it does not exist', () => {
-    const  { bookmarks, updateBookmark } = usePersistedData()
+    const { bookmarks, updateBookmark } = usePersistedData()
     expect(bookmarks).toHaveLength(0)
     updateBookmark(item)
     expect(bookmarks).toHaveLength(1)
   })
 
   it('should remove bookmark if it exist', () => {
-    const  { bookmarks, updateBookmark } = usePersistedData()
+    const { bookmarks, updateBookmark } = usePersistedData()
     updateBookmark(item)
     expect(bookmarks).toHaveLength(1)
     updateBookmark(item)
@@ -41,22 +41,28 @@ describe('usePersistedData', () => {
   })
 
   it('should find bookmark index', () => {
-    const  {updateBookmark, findBookmarkIndex } = usePersistedData()
+    const { updateBookmark, findBookmarkIndex } = usePersistedData()
     updateBookmark(item)
     expect(findBookmarkIndex(item)).toBe(0)
   })
 
   it('should update topics', () => {
-    const  { topics, updateTopicsToShow } = usePersistedData()
+    const { topics, updateTopicsToShow } = usePersistedData()
     const newTopics = ['new', 'old']
     updateTopicsToShow(newTopics)
     expect(topics).toEqual(topics)
   })
 
   it('should sorted list', () => {
-    const  { updateSorted, sorteds } = usePersistedData()
-    const newTopics = ['new', 'old']
+    const { updateSorted, sorteds } = usePersistedData()
     updateSorted(KeyTopic.Go, 'forks')
-    expect(sorteds).toEqual({ vue: '', javascript: '', typescript: '', go: 'forks', css: '', node: '' })
+    expect(sorteds).toEqual({
+      vue: '',
+      javascript: '',
+      typescript: '',
+      go: 'forks',
+      css: '',
+      node: ''
+    })
   })
 })

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import type { Item } from '@/components/Slide/types'
-import type { KeyTopic, PersistedState } from './types'
+import type { KeyTopic, PersistedState } from '@/stores/modules/persistedData/types'
 
 export const usePersistedData = defineStore('persistedData', {
   state: (): PersistedState => ({

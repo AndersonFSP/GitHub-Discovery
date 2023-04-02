@@ -16,16 +16,16 @@ const router = createRouter({
     {
       path: '/discovery',
       component: defineComponent({ template: `<div></div>` }),
-      name: 'discovery',
+      name: 'discovery'
     },
     {
       path: '/register',
       component: defineComponent({ template: `<div></div>` }),
-      name: 'register',
+      name: 'register'
     }
   ]
 })
-const form = { displayName: 'Anderson', email: 'test@out.com', password: '12234567897554'}
+const form = { displayName: 'Anderson', email: 'test@out.com', password: '12234567897554' }
 const renderRegister = () =>
   render(Register, {
     global: { plugins: [createTestingPinia(), router] }

@@ -20,7 +20,7 @@
 
       <template #button>
         <Heading v-if="isloginError" :level="4" class="login-error">
-          An error occurred during login
+          An error occurred during login, check email and password
         </Heading>
         <Button label="sign in" :disabled="isLoading" />
         <BaseText class="create-account-link">
@@ -34,15 +34,11 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-import InputText from '@/components/InputText/InputText.vue'
-import Button from '@/components/Button/Button.vue'
-import Link from '@/components/Link/Link.vue'
-import BaseText from '@/components/BaseText/BaseText.vue'
-import FormBox from '@/components/FormBox/FormBox.vue'
-import Heading from '@/components/Heading/Heading.vue'
+import { BaseText, Button, InputText, Heading, Link, FormBox } from '@/components'
 import { useAuthentication } from '@/stores/modules/authentication'
 import { loginSchema } from '@/validation'
 import { useFormErrors } from '@/composables/useFormErrors'
+import type { ValidationError } from 'yup'
 import { useRouter } from 'vue-router'
 
 const store = useAuthentication()
@@ -71,7 +67,7 @@ const validate = async () => {
     await loginSchema.validate(form, { abortEarly: false })
     login()
   } catch (err) {
-    setErrors(err)
+    setErrors(err as ValidationError)
   }
 }
 </script>

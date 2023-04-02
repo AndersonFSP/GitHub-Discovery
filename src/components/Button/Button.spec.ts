@@ -6,7 +6,7 @@ interface Props {
 }
 const label = 'label'
 const listenerMock = vi.fn()
-const renderButton = (props: Props = {}) => render(Button, { props: { label, ...props }})
+const renderButton = (props: Props = {}) => render(Button, { props: { label, ...props } })
 
 describe('Button', () => {
   beforeEach(() => vi.clearAllMocks())

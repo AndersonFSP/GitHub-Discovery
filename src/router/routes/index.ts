@@ -41,5 +41,5 @@ export const routes: RouteRecordRaw[] = [
       title: 'My Account'
     }
   },
-  { path:  '/:catchAll(.*)', redirect: '/' }, 
+  { path: '/:catchAll(.*)', redirect: '/' }
 ]

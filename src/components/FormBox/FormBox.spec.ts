@@ -3,7 +3,11 @@ import FormBox from './FormBox.vue'
 
 const myText = 'My Text'
 const title = 'Register'
-const renderFormBox = () => render(FormBox, { props: { title }, slots: { default: myText, button: '<button>Submit</button>' } })
+const renderFormBox = () =>
+  render(FormBox, {
+    props: { title },
+    slots: { default: myText, button: '<button>Submit</button>' }
+  })
 
 describe('FormBox', () => {
   it('should render FormBox', () => {

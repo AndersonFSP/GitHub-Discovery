@@ -47,11 +47,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onMounted } from 'vue'
-import Heading from '@/components/Heading/Heading.vue'
-import DropdownList from '@/components/DropdownList/DropdownList.vue'
-import { Option } from '@/components/DropdownList/types'
-import { Item, SlideSize } from './types'
+import { computed, ref } from 'vue'
+import { Heading, DropdownList } from '@/components'
+import type { Option } from '@/components/DropdownList/types'
+import { type Item, SlideSize } from './types'
 import { usePersistedData } from '@/stores/modules/persistedData'
 
 interface Props {
@@ -64,7 +63,8 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   items: () => [],
   sortedDropdown: true,
-  size: SlideSize.Medium
+  size: SlideSize.Medium,
+  keyTopic: ''
 })
 
 const store = usePersistedData()

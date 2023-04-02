@@ -1,22 +1,22 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/vue'
+import { render, screen, fireEvent } from '@testing-library/vue'
 import DropdownList from './DropdownList.vue'
 
-const props = { 
-  title: 'My Dropdown', 
+const props = {
+  title: 'My Dropdown',
   options: [
-    { label: 'Option 1', value: 'option 1' }, 
+    { label: 'Option 1', value: 'option 1' },
     { label: 'Option 2', value: 'option 2' }
   ]
 }
 interface OverrideProps {
   selected?: string
 }
-const renderDropdownList = (overrideProps?: OverrideProps) => 
-  render(DropdownList, { 
-    props: { 
-      ...props, 
-      ...overrideProps 
-    } 
+const renderDropdownList = (overrideProps?: OverrideProps) =>
+  render(DropdownList, {
+    props: {
+      ...props,
+      ...overrideProps
+    }
   })
 
 describe('Button', () => {
@@ -24,7 +24,7 @@ describe('Button', () => {
   it('should render DropdownList', () => {
     renderDropdownList()
     screen.getByText(props.title)
-    const listItems = screen.getAllByTestId('list-item')  
+    const listItems = screen.getAllByTestId('list-item')
     expect(listItems).toHaveLength(props.options.length)
     listItems.forEach((item, index) => {
       const label = props.options[index].label
@@ -41,7 +41,7 @@ describe('Button', () => {
   })
 
   it('should have active class when item is selected', async () => {
-   renderDropdownList()
+    renderDropdownList()
     const { label } = props.options[0]
     const item = screen.getByText(label)
     expect(item).not.toHaveClass('active')
@@ -53,7 +53,7 @@ describe('Button', () => {
     renderDropdownList({ selected: 'option 2' })
     const item = screen.getByText('Option 2')
     expect(item).toHaveClass('active')
-   })
+  })
 
   it('should emitt event on change', async () => {
     const { emitted } = renderDropdownList()

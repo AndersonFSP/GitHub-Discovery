@@ -36,14 +36,12 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-import InputText from '@/components/InputText/InputText.vue'
-import Button from '@/components/Button/Button.vue'
-import FormBox from '@/components/FormBox/FormBox.vue'
-import Heading from '@/components/Heading/Heading.vue'
+import { InputText, Button, FormBox, Heading } from '@/components'
 import { useAuthentication } from '@/stores/modules/authentication'
 import { useFormErrors } from '@/composables/useFormErrors'
 import { registerSchema } from '@/validation'
 import { useRouter } from 'vue-router'
+import type { ValidationError } from 'yup'
 
 const store = useAuthentication()
 const router = useRouter()
@@ -71,7 +69,7 @@ const validate = async () => {
     await registerSchema.validate(form, { abortEarly: false })
     register()
   } catch (err) {
-    setErrors(err)
+    setErrors(err as ValidationError)
   }
 }
 </script>

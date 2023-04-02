@@ -8,12 +8,11 @@
       :class="['input', state]"
       :type="type"
       :value="modelValue"
-      autocomplete
       data-testid="input"
       :aria-label="label"
       @focus="focusInput"
       @blur="blurInput"
-      @input="onInput($event.target.value)"
+      @input="onInput"
     />
     <p v-if="hasError" class="message" data-testid="input-text">
       {{ message }}
@@ -60,7 +59,8 @@ const hasError = computed((): boolean => props.status === StatusType.Error)
 
 const focusInput = () => (active.value = true)
 const blurInput = () => (active.value = props.modelValue ? true : false)
-const onInput = (value: string) => emit('update:modelValue', value)
+const onInput = (event: Event) =>
+  emit('update:modelValue', (event.target as HTMLInputElement).value)
 onBeforeMount(() => {
   if (props.modelValue) active.value = true
 })

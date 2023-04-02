@@ -11,24 +11,26 @@ const router = createRouter({
     {
       path: '',
       component: defineComponent({ template: `<div></div>` }),
-      name: 'login'
+      name: 'update'
     },
     {
       path: '/discovery',
       component: defineComponent({ template: `<div></div>` }),
-      name: 'discovery',
+      name: 'discovery'
     },
     {
       path: '/register',
       component: defineComponent({ template: `<div></div>` }),
-      name: 'register',
+      name: 'register'
     }
   ]
 })
-const user = { displayName: 'Anderson', email: 'test@out.com'}
+const user = { displayName: 'Anderson', email: 'test@out.com' }
 const renderUpdateUser = () =>
   render(UpdateUser, {
-    global: { plugins: [createTestingPinia({ initialState: { authentication: { user } } }), router] }
+    global: {
+      plugins: [createTestingPinia({ initialState: { authentication: { user } } }), router]
+    }
   })
 
 describe('Login', () => {
@@ -48,7 +50,6 @@ describe('Login', () => {
     expect(inputEmail).toHaveValue(user.email)
   })
 
-
   it('should submit the form if it is fill out', async () => {
     renderUpdateUser()
     const store = useAuthentication()
@@ -57,10 +58,9 @@ describe('Login', () => {
 
     const submitButton = screen.getByText('save')
     await fireEvent.click(submitButton)
-  
+
     await waitFor(() => {
       expect(store.update).not.toBeCalled()
-      
     })
   })
 
@@ -74,10 +74,10 @@ describe('Login', () => {
     await fireEvent.update(inputEmail, form.email)
     const submitButton = screen.getByText('save')
     await fireEvent.click(submitButton)
-  
+
     await waitFor(() => {
       expect(store.update).toBeCalledWith(form)
-      expect(router.currentRoute.value.name).toEqual('login')
+      expect(router.currentRoute.value.name).toEqual('update')
     })
   })
 })
